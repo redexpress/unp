@@ -33,8 +33,6 @@ void	 Listen(int, int);
 #ifdef	HAVE_POLL
 int		 Poll(struct pollfd *, unsigned long, int);
 #endif
-ssize_t	 Readline(int, void *, size_t);
-ssize_t	 Readn(int, void *, size_t);
 ssize_t	 Recv(int, void *, size_t, int);
 ssize_t	 Recvfrom(int, void *, size_t, int, SA *, socklen_t *);
 ssize_t	 Recvmsg(int, struct msghdr *, int);
