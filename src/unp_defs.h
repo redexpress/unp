@@ -1,8 +1,11 @@
 /* include unph */
 /* Our own header.  Tabs are set for 4 spaces, not 8 */
 
-#ifndef    __unp_h
-#define    __unp_h
+#ifndef    __unp_defs_h
+#define    __unp_defs_h
+
+typedef long ssize_t;
+typedef void Sigfunc(int);
 
 /* Following could be derived from SOMAXCONN in <sys/socket.h>, but many
  kernels still #define it as 5, while actually supporting many more */
@@ -26,5 +29,5 @@
 #define    DIR_MODE    (FILE_MODE | S_IXUSR | S_IXGRP | S_IXOTH)
 /* default permissions for new directories */
 
-#endif    /* __unp_h */
+#endif
 
