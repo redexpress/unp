@@ -5,6 +5,7 @@
 #include "unp_wrapstdio.h"
 #include "writen.h"
 #include "readline.h"
+#include <string.h>
 
 void
 str_cli(FILE *fp, int sockfd)

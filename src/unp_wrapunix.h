@@ -10,7 +10,6 @@
 #include    <stdio.h>
 #include    <stdlib.h>
 #include    <unistd.h>
-#include <strings.h>
 
 			/* prototypes for our Unix wrapper functions: see {Sec errors} */
 void	*Calloc(size_t, size_t);
@@ -35,7 +34,7 @@ void	 Sigpending(sigset_t *);
 void	 Sigprocmask(int, const sigset_t *, sigset_t *);
 char	*Strdup(const char *);
 long	 Sysconf(int);
-void	 Sysctl(int *, u_int, void *, size_t *, void *, size_t);
+void	 Sysctl(int *, unsigned int, void *, size_t *, void *, size_t);
 void	 Unlink(const char *);
 pid_t	 Wait(int *);
 pid_t	 Waitpid(pid_t, int *, int);
