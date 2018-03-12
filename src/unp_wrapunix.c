@@ -19,10 +19,6 @@
 #include "unp_wrapunix.h"
 #include <time.h>
 #include <sys/ioctl.h>
-#include <sys/time.h>
-#include <sys/select.h>
-#include <signal.h>
-#include <string.h>
 
 void *
 Calloc(size_t n, size_t size)
