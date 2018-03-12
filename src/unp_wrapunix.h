@@ -10,6 +10,7 @@
 #include    <stdio.h>
 #include    <stdlib.h>
 #include    <unistd.h>
+#include <strings.h>
 
 			/* prototypes for our Unix wrapper functions: see {Sec errors} */
 void	*Calloc(size_t, size_t);
