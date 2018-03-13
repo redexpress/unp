@@ -18,6 +18,8 @@
 
 #include "unp_wrapsock.h"
 #include <sys/_select.h>
+#include <sys/types.h>
+#include <sys/poll.h>
 
 int
 Accept(int fd, struct sockaddr *sa, socklen_t *salenptr)
@@ -177,18 +179,16 @@ Listen(int fd, int backlog)
 }
 /* end Listen */
 
-#ifdef	HAVE_POLL
 int
 Poll(struct pollfd *fdarray, unsigned long nfds, int timeout)
 {
 	int		n;
 
-	if ( (n = poll(fdarray, nfds, timeout)) < 0)
+	if ( (n = poll(fdarray, (nfds_t)nfds, timeout)) < 0)
 		err_sys("poll error");
 
 	return(n);
 }
-#endif
 
 ssize_t
 Recv(int fd, void *ptr, size_t nbytes, int flags)

@@ -4,8 +4,22 @@
 #ifndef    __unp_defs_h
 #define    __unp_defs_h
 
-typedef long ssize_t;
-typedef void Sigfunc(int);
+typedef	void	Sigfunc(int);	/* for signal handlers */
+
+#define	min(a,b)	((a) < (b) ? (a) : (b))
+#define	max(a,b)	((a) > (b) ? (a) : (b))
+
+/* POSIX requires that an #include of <poll.h> DefinE INFTIM, but many
+ systems still DefinE it in <sys/stropts.h>.  We don't want to include
+ all the STREAMS stuff if it's not needed, so we just DefinE INFTIM here.
+ This is the standard value, but there's no guarantee it is -1. */
+#ifndef INFTIM
+#define INFTIM          (-1)    /* infinite poll timeout */
+/* $$.Ic INFTIM$$ */
+#ifdef    HAVE_POLL_H
+#define    INFTIM_UNPH                /* tell unpxti.h we defined it */
+#endif
+#endif
 
 /* Following could be derived from SOMAXCONN in <sys/socket.h>, but many
  kernels still #define it as 5, while actually supporting many more */

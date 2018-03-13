@@ -1,7 +1,9 @@
 #include "unp_defs.h"
 #include "unp_wrapsock.h"
 #include "unp_wrapunix.h"
+#include "unp_signal.h"
 #include "str_echo.h"
+#include "sigchldwaitpid.h"
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <strings.h>
@@ -13,6 +15,7 @@ main(int argc, char **argv)
     pid_t                childpid;
     socklen_t            clilen;
     struct sockaddr_in    cliaddr, servaddr;
+    void                sig_chld(int);
     
     listenfd = Socket(AF_INET, SOCK_STREAM, 0);
     
@@ -25,9 +28,16 @@ main(int argc, char **argv)
     
     Listen(listenfd, LISTENQ);
     
+    Signal(SIGCHLD, sig_chld);    /* must call waitpid() */
+    
     for ( ; ; ) {
         clilen = sizeof(cliaddr);
-        connfd = Accept(listenfd, (SA *) &cliaddr, &clilen);
+        if ( (connfd = accept(listenfd, (SA *) &cliaddr, &clilen)) < 0) {
+            if (errno == EINTR)
+                continue;        /* back to for() */
+            else
+                err_sys("accept error");
+        }
         
         if ( (childpid = Fork()) == 0) {    /* child process */
             Close(listenfd);    /* close listening socket */

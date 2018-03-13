@@ -6,6 +6,7 @@
 
 #include "unp_defs.h"
 #include <stddef.h>
+#include <sys/types.h>
 
 ssize_t
 Readline(int fd, void *ptr, size_t maxlen);

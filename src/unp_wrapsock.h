@@ -9,6 +9,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <sys/socket.h>
+#include <sys/poll.h>
+
 			/* prototypes for our socket wrapper functions: see {Sec errors} */
 int		 Accept(int, SA *, socklen_t *);
 void	 Bind(int, const SA *, socklen_t);
@@ -30,9 +33,7 @@ int		 Kevent(int, const struct kevent *, int,
 				struct kevent *, int, const struct timespec *);
 #endif
 void	 Listen(int, int);
-#ifdef	HAVE_POLL
 int		 Poll(struct pollfd *, unsigned long, int);
-#endif
 ssize_t	 Recv(int, void *, size_t, int);
 ssize_t	 Recvfrom(int, void *, size_t, int, SA *, socklen_t *);
 ssize_t	 Recvmsg(int, struct msghdr *, int);
