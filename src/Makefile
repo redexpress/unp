@@ -2,7 +2,7 @@
 OBJS := unp_wrapsock.o unp_wrapunix.o unp_wraplib.o unp_wrapstdio.o unp_error.o
 OBJS2 := unp_wrapsock.o unp_wrapunix.o unp_error.o
 build:
-	make byteorder daytime tcp udp checkopts
+	make byteorder daytime tcp udp checkopts ping
 strcliselect01.o:
 	$(CC) -I$(shell pwd) -c select/strcliselect01.c
 strcliselect02.o:
@@ -53,6 +53,8 @@ udpcli01: $(OBJS) dg_cli.o
 	$(CC) $@.c $(OBJS) dg_cli.o -o $@
 udpcli04: $(OBJS) dgcliconnect.o
 	$(CC) $@.c $(OBJS) dgcliconnect.o -o $@
+ping: $(OBJS) host_serv.o sock_ntop_host.o unp_signal.o
+	$(CC) $@.c $(OBJS) host_serv.o sock_ntop_host.o unp_signal.o -o $@
 daytime: daytimetcpcli daytimetcpcliv6 daytimetcpsrv daytimetcpsrv1
 	@echo "build :::::::: $@ ::::::::"
 tcp: tcpserv01 tcpserv04 tcpserv08 tcpserv09 tcpcli01 tcpcli04 tcpcli08 tcpcli09 tcpcli11 tcpcliselect01 tcpcliselect02
@@ -65,4 +67,5 @@ clean:
 	-rm daytimetcpcli daytimetcpcliv6 daytimetcpsrv daytimetcpsrv1
 	-rm tcpserv0[1489] tcpcli0[1489] tcpcli11 tcpcliselect0[12] tcpcliservselect01 tcpservpoll01
 	-rm checkopts
+	-rm ping
 	-rm udpserv01 udpcli0[14]
